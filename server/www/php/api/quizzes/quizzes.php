@@ -20,7 +20,7 @@
 
     function get_descriptors(){
         $err_msg = "An internal or external error occurred while attempting to preform this operation.";
-        $conn = DataManager::getConnection();
+        $conn = DataManager::getInstance()->getConnection();
         if(!$conn || $conn->connect_error) exit(json_encode(['error' => $err_msg]));
         $statement = $conn->prepare('SELECT `id`, `name` FROM `quizzes` WHERE 1');
         if(!$statement || !$statement->execute())  exit(json_encode(['error' => $err_msg]));

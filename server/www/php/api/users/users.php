@@ -2,6 +2,7 @@
 
     require_once __DIR__ . '/../../models/User.php';
     require_once __DIR__ . '/../../models/Group.php';
+    require_once __DIR__ . '/../../models/Insurer.php';
 
     if(!$_POST) $_POST = (array) json_decode(file_get_contents('php://input'));
     
@@ -12,6 +13,7 @@
     }
 
     function signup(){
+
         //Validate email
         $email = strtolower($_POST['email']);
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) exit(json_encode(['error' => 'Invalid email address']));
@@ -31,7 +33,7 @@
         $group = Group::fromId(3);
 
         //Instantiate model and save to DB
-        $user = new User($email, $password_hash, $_POST['firstName'], $_POST['lastName'], $_POST['address'], $_POST['phoneNumber'], $_POST['insuranceCompany'], $_POST['dashcam'], $ip, $ip, false, [], [$group], [$token]);
+        $user = new User($email, $password_hash, NULL, NULL, NULL, NULL, NULL, NULL, $ip, $ip, false, [], [$group], [$token]);
         $result = $user->save();
         if(!$result) exit(json_encode(['error' => 'An internal or external error occurred while attempting to create your account. Please contact customer support if the problem persists.']));
 
@@ -40,16 +42,47 @@
         exit(json_encode(['token' => $token, 'userData' => $user]));
     }
 
-    if(isset($_GET['id'])){
-        exit(json_encode(User::fromId($_GET['id'])));
+    function get_user_data(){
+        $error_message = 'Either The specified resource does not exist, or you do not have permission to view it.';
+        $user = User::fromId($_GET['id']);
+        if($user === null) {
+            exit(json_encode(['error' => $error_message]));
+        } else {
+            $token = $_GET['token'];
+            if(in_array($token, $user->getSessionTokens())) {
+                exit(json_encode($user));
+            } else {
+                exit(json_encode(['error' => $error_message]));
+            }
+        }
+    }
+
+    function update_profile() {
+        $token = $_POST['token'];
+        $user = User::fromSessionToken($token);
+        if($user === null) exit(json_encode(['error' => 'Invalid session token.']));
+        if(isset($_POST['firstName'])) $user->setFirstName($_POST['firstName']);
+        if(isset($_POST['lastName'])) $user->setLastName($_POST['lastName']);
+        if(isset($_POST['address'])) $user->setAddress($_POST['address']);
+        if(isset($_POST['phoneNumber'])) $user->setPhoneNumber($_POST['phoneNumber']);
+        $insurer = Insurer::fromId($_POST['insuranceCompany']);
+        if(isset($_POST['insuranceCompany'])) $user->setInsuranceCompany($insurer);
+
+        if(!$user->save()) exit(json_encode(['error' => 'An internal or external error occurred while preforming this operation.']));
+        exit(json_encode($insurer));
+    }
+
+    if(isset($_GET['id']) && isset($_GET['token'])){
+        get_user_data();
     } else if (isset($_GET['token'])) {
         $user = User::fromSessionToken($_GET['token']);
-        if(!$user) {
+        if($user === null) {
             exit(json_encode(['error' => 'Invalid session token.']));
         } else {
             exit(json_encode($user));
         }
-    } else if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordConfirm']) && isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['address']) && isset($_POST['phoneNumber']) && isset($_POST['insuranceCompany']) && isset($_POST['dashcam'])){
+    } else if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordConfirm'])){
+
        signup();
     } else if (isset($_GET['email']) && isset($_GET['password'])) {
         $credentials_error = 'Invaid email address or password.';
@@ -68,6 +101,8 @@
             exit(json_encode(['token' => $new_token, 'userData' => $user, 'session_tokens' => $user->getSessionTokens()]));
         }
         
+    } else if (isset($_POST['action']) && $_POST['action'] == 'update_profile' && isset($_POST['token'])) {
+        update_profile();
     } else {
         exit(json_encode(['error' => 'Invalid request.']));
     }

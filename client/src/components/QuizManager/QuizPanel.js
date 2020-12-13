@@ -42,7 +42,10 @@ const QuizPanel = (props) => {
             action: 'save',
             quiz: quiz
         };
+        console.log(params);
+
         axios.post('/php/api/quizzes/quizzes.php', params).then((res) => {
+            console.log(res.data);
             if (res.data.error) {
                 alert(res.data.error);
             } else {
@@ -94,7 +97,7 @@ const QuizPanel = (props) => {
                         <fieldset>
                             <Form.Control style={{width: '250px', display: 'inline-block'}} onChange={(evt) => setQuiz({ ...quiz, name: evt.target.value })} />
             
-                            <Button style={{transform: 'translate(0, -1px)', marginLeft: '10px', display: 'inline-block'}} onClick={() => setEditTitle(false)}>Save quiz title</Button>
+                            <Button style={{marginLeft: '10px', display: 'inline-block', position: 'relative', bottom: '2px'}} onClick={() => setEditTitle(false)}>Save quiz title</Button>
                          
                         </fieldset>
                         :

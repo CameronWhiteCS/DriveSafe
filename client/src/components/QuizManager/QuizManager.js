@@ -36,7 +36,7 @@ const QuizManager = (props) => {
             token: new Cookies().get('token'),
             action: 'create'
         };
-        axios.post('/php./api/quizzes/quizzes.php', params).then((res) => {
+        axios.post('/php/api/quizzes/quizzes.php', params).then((res) => {
             if (res.data.error) {
                 alert(res.data.error);
             } else {
@@ -57,7 +57,7 @@ const QuizManager = (props) => {
                 <Col xs={10}>
                     <h1>Quiz Manager</h1>
                     <hr/>
-                    <Alert variant="dark">
+                    <Alert variant="light">
                         Here, you can create new quizzes and modify old ones. Quiz questions can have any number of possible answers, and more than one answer can be marked as correct.
              </Alert>
                     {

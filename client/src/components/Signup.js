@@ -32,17 +32,11 @@ const Signup = (props) => {
     const initialValues = {
         email: '',
         password: '',
-        passwordConfirm: '',
-        firstName: '',
-        lastName: '',
-        address: '',
-        phoneNumber: '',
-        insuranceCompany: '',
-        dashcam: "false"
+        passwordConfirm: ''
     };
 
     const validate = (data) => {
-        const requiredFields = ['email', 'password', 'passwordConfirm', 'firstName', 'lastName', 'address', 'phoneNumber', 'insuranceCompany', 'dashcam'];
+        const requiredFields = ['email', 'password', 'passwordConfirm'];
         for(let i = 0; i < requiredFields.length; i++){
             if(data[requiredFields[i]] === undefined || data[requiredFields[i]] === '') {
                 alert('All fields are required.');
@@ -103,58 +97,7 @@ const Signup = (props) => {
                                             as={Form.Control}
                                         />
                                     </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>First name</Form.Label>
-                                        <Field
-                                            placeholder="Robert"
-                                            name="firstName"
-                                            type="input"
-                                            as={Form.Control}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Last name</Form.Label>
-                                        <Field
-                                            placeholder="Frost"
-                                            name="lastName"
-                                            type="input"
-                                            as={Form.Control}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Address</Form.Label>
-                                        <Field
-                                            placeholder="P. Sherman 42 Wallaby Way"
-                                            name="address"
-                                            type="input"
-                                            as={Form.Control}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Phone number</Form.Label>
-                                        <Field
-                                            placeholder="800-867-5309"
-                                            name="phoneNumber"
-                                            type="input"
-                                            as={Form.Control}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Insurance Company</Form.Label>
-                                        <Field
-                                            placeholder="Farm State"
-                                            name="insuranceCompany"
-                                            type="input"
-                                            as={Form.Control}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Do you have a dashcam in your car?</Form.Label>
-                                        <select defaultValue={values.dashcam} onChange={handleChange} className="form-control" name="dashcam" id="dashcam">
-                                            <option value="true">Yes</option>
-                                            <option value="false">No</option>
-                                        </select>
-                                    </Form.Group>
+
                                     <p>By creating an account with us, you agree to our <a onClick={onLinkClick} href="/tos">terms of service</a> and <a onClick={onLinkClick} href="/privacy">privacy policy</a>.</p>
                                     <Button disabled={isSubmitting} variant="primary" type="submit">
                                         Create account

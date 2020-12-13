@@ -83,7 +83,7 @@ const QuestionPanel = (props) => {
                     <React.Fragment>
 
                                 <Form.Control style={{display: 'inline-block', width: '250px'}} onChange={(evt) => changeQuestionText(evt.target.value)} />
-                                <Button style={{marginLeft: '10px', display: 'inline-block', width: '125px'}} onClick={() => setEdit(false)}>Update text</Button>
+                                <Button style={{marginLeft: '10px', display: 'inline-block', width: '125px', position: 'relative', bottom: '2px'}} onClick={() => setEdit(false)}>Update text</Button>
                                 <br/>
                                 <br/>
                     </React.Fragment>
@@ -94,7 +94,7 @@ const QuestionPanel = (props) => {
                         <p onClick={() => setEdit(true)}>{props.question.text}</p>
                     </React.Fragment>
             }
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover variant="light">
                 <thead>
                     <tr>
                         <th><b>Choice</b></th>

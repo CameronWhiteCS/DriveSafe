@@ -69,7 +69,7 @@ const Signin = (props) => {
                                     <Field
                                         placeholder="cow@cow.jp"
                                         name="email"
-                                        type="input"
+                                        type="email"
                                         as={Form.Control}
                                     />
                                 </Form.Group>

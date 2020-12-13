@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const startSession = (token) => {
     const cookies = new Cookies();
-    cookies.set('token', token, {sameSite: 'lax', expires: new Date(Date.now() + 24 * 7 * 1000000)});
+    cookies.set('token', token, {sameSite: 'Lax', expires: new Date(Date.now() + 24 * 7 * 1000000)});
 }
 
 const endSession = () => {

@@ -3,6 +3,7 @@
     require_once __DIR__ . '/../DataManager.php';
     require_once __DIR__ . '/Group.php';
     require_once __DIR__ . '/Model.php';
+    require_once __DIR__ . '/Insurer.php';
     require_once __DIR__ . '/../include/queries.php';
     require_once __DIR__ . '/../include/uuid.php';
 
@@ -17,7 +18,7 @@
         private $last_name;
         private $address;
         private $phone_number;
-        private $insurance_company;
+        private $insurance_company = null;
         private $dashcam;
         private $creation_ip;
         private $last_ip;
@@ -36,7 +37,7 @@
          * 
          */
 
-        public function __construct(string $email, string $password_hash, string $first_name, string $last_name, string $address, string $phone_number, string $insurance_company, bool $dashcam, string $creation_ip, string $last_ip, bool $validated, array $permissions, array $groups, array $session_tokens){
+        public function __construct(string $email, string $password_hash, ?string $first_name, ?string $last_name, ?string $address, ?string $phone_number, $insurance_company, ?bool $dashcam, string $creation_ip, string $last_ip, bool $validated, array $permissions, array $groups, array $session_tokens){
             $this->email = $email;
             $this->password_hash = $password_hash;
             $this->first_name = $first_name;
@@ -66,7 +67,7 @@
         }
 
         public static function fromSessionToken(string $session_token){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return null;
 
             //$statement = $conn->prepare('DELETE FROM `session_tokens` WHERE DATEDIFF(NOW(), `date`) > 7');
@@ -90,7 +91,11 @@
             $groups = self::fetchGroups($id);
             $session_tokens = self::fetchSessionTokens($id);
             if($permissions === null || $groups === null || $session_tokens === null) return null;
-            $output =  new User($row['email'], $row['password_hash'], $row['first_name'], $row['last_name'], $row['address'], $row['phone_number'], $row['insurance_company'], $row['dashcam'], $row['creation_ip'], $row['last_ip'], $row['validated'], $permissions, $groups, $session_tokens);
+            $insurer = NULL;
+            if($row['insurance_company'] !== null) {
+                $insurer = Insurer::fromId($row['insurance_company']);
+            }
+            $output =  new User($row['email'], $row['password_hash'], $row['first_name'], $row['last_name'], $row['address'], $row['phone_number'], $insurer, $row['dashcam'], $row['creation_ip'], $row['last_ip'], $row['validated'], $permissions, $groups, $session_tokens);
             $output->setId($row['id']);
             $output->setModified($row['modified']);
             $output->setNew(false);
@@ -229,7 +234,7 @@
             return $this->insurance_company;
         }
 
-        public function setInsuranceCompany(string $insurance_company){
+        public function setInsuranceCompany($insurance_company){
             $this->insurance_company = $insurance_company;
         }
 
@@ -305,14 +310,14 @@
 
             $this->id = gen_uuid();
 
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return false;
 
             if(!$conn->begin_transaction()) return false;
 
             //Write to users table
             $statement = $conn->prepare('INSERT INTO `users` (`id`, `email`, `password_hash`, `first_name`, `last_name`, `address`, `phone_number`, `insurance_company`, `dashcam`, `creation_ip`, `last_ip`, `validated`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-            if(!$statement || !$statement->bind_param("ssssssssssss", $this->id, $this->email, $this->password_hash, $this->first_name, $this->last_name, $this->address, $this->phone_number, $this->insurance_company, $this->dashcam, $this->creation_ip, $this->last_ip, $this->validated)) {
+            if(!$statement || !$statement->bind_param("ssssssssssss", $this->id, $this->email, $this->password_hash, $this->first_name, $this->last_name, $this->address, $this->phone_number, $insurer, $this->dashcam, $this->creation_ip, $this->last_ip, $this->validated)) {
                 return false;
             }
             if(!$statement->execute()) return false;
@@ -363,13 +368,15 @@
 
         private function saveUser(){
 
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return false;
             if(!$conn->begin_transaction()) return false;
 
+            $insurer = $this->insurance_company === null ? null : $this->insurance_company->getId();
+
             //Save primary table
             $statement = $conn->prepare('UPDATE `users` SET `email` = ?, `password_hash` = ?, `first_name` = ?, `last_name` = ?, `address` = ?, `phone_number` = ?, `insurance_company` = ?, `dashcam` = ?, `creation_ip` = ?, `last_ip` = ?, `validated` = ?, `modified` = NOW() WHERE `id` = ? AND `modified` = ?');
-            if(!$statement || !$statement->bind_param("sssssssssssss", $this->email, $this->password_hash, $this->first_name, $this->last_name, $this->address, $this->phone_number, $this->insurance_company, $this->dashcam, $this->creation_ip, $this->last_ip, $this->validated, $this->id, $this->modified) || !$statement->execute()) return false;
+            if(!$statement || !$statement->bind_param("sssssssssssss", $this->email, $this->password_hash, $this->first_name, $this->last_name, $this->address, $this->phone_number, $insurer, $this->dashcam, $this->creation_ip, $this->last_ip, $this->validated, $this->id, $this->modified) || !$statement->execute()) return false;
         
 
              //Prevent stale data from being saved.
@@ -458,6 +465,10 @@
                 'email' => $this->email,
                 'firstName' => $this->first_name,
                 'lastName' => $this->last_name,
+                'address' => $this->address,
+                'phoneNumber' => $this->phone_number,
+                'insuranceCompany' => $this->insurance_company,
+                'dashcam' => $this->dashcam,
                 'permissions' => $this->permissions,
                 'groups' => $this->groups
             ];

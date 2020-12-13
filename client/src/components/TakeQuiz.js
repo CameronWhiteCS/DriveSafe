@@ -66,7 +66,7 @@ const TakeQuiz = (props) => {
                                             question.choices.map((choice, choiceIndex) => {
                                                 return (
                                                     <React.Fragment key={choiceIndex}>
-                                                        <p>{choice.text} <input type="radio" name={"question-" + questionIndex} value={choiceIndex}/></p>
+                                                        <p> <input type="radio" name={"question-" + questionIndex} value={choiceIndex}/> {choice.text}</p>
                                                     </React.Fragment>
                                                 )
                                             })  

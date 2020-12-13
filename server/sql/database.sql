@@ -5,22 +5,29 @@ DROP DATABASE IF EXISTS app;
 CREATE DATABASE IF NOT EXISTS app;
 USE app;
 
+/* Insurers */
+CREATE TABLE `insurers` (
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(64) NOT NULL
+) engine=InnoDB;
+
 /**User and authentication data**/
 CREATE TABLE `users`(
     `id` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `password_hash` VARCHAR(255) NOT NULL,
-    `first_name` VARCHAR(255) NOT NULL,
-    `last_name` VARCHAR(255) NOT NULL,
-    `address` VARCHAR(255) NOT NULL,
-    `phone_number` VARCHAR(255) NOT NULL,
-    `insurance_company` VARCHAR(255) NOT NULL,
-    `dashcam` TINYINT NOT NULL,
+    `first_name` VARCHAR(255),
+    `last_name` VARCHAR(255),
+    `address` VARCHAR(255),
+    `phone_number` VARCHAR(255),
+    `insurance_company` INT,
+    `dashcam` TINYINT,
     `creation_ip` VARCHAR(128) NOT NULL,
     `last_ip` VARCHAR(128) NOT NULL,
     `validated` TINYINT NOT NULL DEFAULT 0,
     `modified` DATETIME NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    CONSTRAINT FOREIGN KEY (`insurance_company`) REFERENCES `insurers`(`id`)
 ) engine=InnoDB;
 
 CREATE TABLE `session_tokens`(
@@ -93,15 +100,18 @@ CREATE TABLE `accident_reports`(
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `author` VARCHAR(255) NOT NULL,
     `city` INT NOT NULL,
-    `date` DATETIME NOT NULL,
-    `clear` TINYINT NOT NULL DEFAULT 0,
+    `date` DATETIME NOT NULL DEFAULT NOW(),
+    `latitude` FLOAT NOT NULL,
+    `longitude` FLOAT NOT NULL,
+    `address` VARCHAR(255),
     `rain` TINYINT NOT NULL DEFAULT 0,
-    `snow` TINYINT NOT NULL DEFAULT 0,
     `hail` TINYINT NOT NULL DEFAULT 0,
+    `sleet` TINYINT NOT NULL DEFAULT 0,
+    `snow` TINYINT NOT NULL DEFAULT 0,
     `fog` TINYINT NOT NULL DEFAULT 0,
-    `high_winds` TINYINT NOT NULL DEFAULT 0,
-    CONSTRAINT FOREIGN KEY (`city`) REFERENCES `cities`(`id`) ON DELETE CASCADE,
-    CONSTRAINT FOREIGN KEY (`author`) REFERENCES `users`(`id`)
+    `wind` TINYINT NOT NULL DEFAULT 0,
+    CONSTRAINT FOREIGN KEY (`author`) REFERENCES `users`(`id`),
+    CONSTRAINT FOREIGN KEY (`city`) REFERENCES `cities`(`id`)
 ) engine=InnoDB;
 
 CREATE TABLE `rivalries`(
@@ -135,6 +145,7 @@ INSERT INTO `group_permissions` (`group`, `permission`) VALUES
 (1, 'group.create'),
 (1, 'group.delete'),
 (1, 'controlpanel.view'),
+(1, 'report.create'),
 (2, 'quiz.create'),
 (2, 'quiz.modify.self'),
 (2, 'quiz.modify.other'),
@@ -143,13 +154,29 @@ INSERT INTO `group_permissions` (`group`, `permission`) VALUES
 (2, 'group.modify'),
 (2, 'group.create'),
 (2, 'group.delete'),
-(2, 'controlpanel.view');
+(2, 'controlpanel.view'),
+(2, 'report.create');
 
-INSERT INTO `users` (`id`, `email`, `password_hash`, `first_name`, `last_name`, `address`, `phone_number`, `insurance_company`, `dashcam`, `creation_ip`, `last_ip`, `validated`) VALUES ('c3b06734-fa42-48ff-becf-043f6801cc1d', 'admin@gmail.com', '$2y$10$f47LdJAYSB2IUnNUDcPMZuVGjjh94APRwsZH6hgNftg3dL7pdIswu', 'Admin', 'Account', 'Admin street', '555-555-5555', 'Gieco', 1, '127.0.0.1', '127.0.0.1', 1);
+INSERT INTO `insurers` (`name`) VALUES
+('None'),
+('State Farm'),
+('Geico'),
+('Progressive'),
+('Allstate'),
+('USAA'),
+('Liberty Mutual'),
+('Farmers Insurance'),
+('Nationwide'),
+('American Family Insurance'),
+('Travelers');
+
+INSERT INTO `users` (`id`, `email`, `password_hash`, `first_name`, `last_name`, `address`, `phone_number`, `insurance_company`, `dashcam`, `creation_ip`, `last_ip`, `validated`) VALUES ('c3b06734-fa42-48ff-becf-043f6801cc1d', 'admin@gmail.com', '$2y$10$f47LdJAYSB2IUnNUDcPMZuVGjjh94APRwsZH6hgNftg3dL7pdIswu', 'Admin', 'Account', 'Admin street', '555-555-5555', 2, 1, '127.0.0.1', '127.0.0.1', 1);
 
 INSERT INTO `group_memberships` (`user`, `group`) VALUES
 ('c3b06734-fa42-48ff-becf-043f6801cc1d', 1),
 ('c3b06734-fa42-48ff-becf-043f6801cc1d', 2), 
 ('c3b06734-fa42-48ff-becf-043f6801cc1d', 3);
+
+
 
 

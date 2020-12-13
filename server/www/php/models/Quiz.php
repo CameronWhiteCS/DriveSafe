@@ -66,7 +66,7 @@
         }
 
         private static function fetch_questions($id){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return null;
 
             //Get questions
@@ -110,7 +110,7 @@
         }
 
         public static function fromId(int $id){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return null;
 
 
@@ -133,7 +133,7 @@
         }
 
         public static function getAll(){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return null;
             $statement = $conn->prepare('SELECT * FROM `quizzes` WHERE 1');
             if(!$statement || !$statement->execute()) return null;
@@ -201,7 +201,7 @@
                 foreach($question->getChoices() as $choice){
                     array_push($values, $question->getId());
                     array_push($values, $choice->getText());
-                    array_push($values, $choice->isCorrect());
+                    array_push($values, $choice->isCorrect() ? 1 : 0);
                 }
             }
 
@@ -213,7 +213,7 @@
 
         private function saveNewQuiz(){
 
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error || !$conn->begin_transaction()) return false;
 
             //Primary table
@@ -237,7 +237,7 @@
         private function saveOldQuiz(){
 
 
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error || !$conn->begin_transaction()) return false;
 
             //Primary table
@@ -269,7 +269,7 @@
         }
 
         public function delete(){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return false;
             $statement = $conn->prepare('DELETE FROM `quizzes` WHERE `id` = ?');
             if(!$statement || !$statement->bind_param("i", $_POST['id']) || !$statement->execute()) return false;

@@ -133,7 +133,7 @@
         }
 
         private function saveNewGroup(){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error || !$conn->begin_transaction()) return false;
 
             //Insert primary table
@@ -160,7 +160,7 @@
 
         private function saveOldGroup(){
 
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error || !$conn->begin_transaction()) return false;
 
             //Insert primary table
@@ -196,7 +196,7 @@
         }
 
         public function delete(){
-            $conn = DataManager::getConnection();
+            $conn = DataManager::getInstance()->getConnection();
             if(!$conn || $conn->connect_error) return false;
             $statement = $conn->prepare('DELETE FROM `groups` WHERE id = ?');
             if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;

@@ -41,7 +41,7 @@ const GroupManager = (props) => {
                     <Col xs={1} />
                     <Col xs={10}>
                         <h1>Group Manager</h1>
-                        <Alert variant="dark">
+                        <Alert variant="light">
                             <p>Here, you can modify what actions different types of users are allowed to make and even create new categories of users. Each group has a list of <b>permission nodes</b>, bits of text used to represent various actions. A complete list of permission nodes (along with what they do) can be found in the software documentation. </p>
                             <p>Members of a group inheret all of the permissions from that group. The 'root' group exists for technical purposes and shouldn't be modified. </p>
                         </Alert>
