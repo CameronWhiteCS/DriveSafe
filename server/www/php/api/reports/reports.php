@@ -25,12 +25,12 @@
         $latitude = $_POST['latitude'];
         $longitude = $_POST['longitude'];
         $address = $_POST['address'];
-        $rain = $_POST['rain'];
-        $hail = $_POST['hail'];
-        $sleet = $_POST['snow'];
-        $snow = $_POST['snow'];
-        $fog = $_POST['fog'];
-        $wind = $_POST['wind'];
+        $rain = $_POST['rain'] ? 1 : 0;
+        $hail = $_POST['hail'] ? 1 : 0;
+        $sleet = $_POST['snow'] ? 1 : 0;
+        $snow = $_POST['snow'] ? 1 : 0;
+        $fog = $_POST['fog'] ? 1 : 0;
+        $wind = $_POST['wind'] ? 1 : 0;
     
         //Convert address into GPS coordinates
         if($address) {

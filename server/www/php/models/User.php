@@ -37,7 +37,7 @@
          * 
          */
 
-        public function __construct(string $email, string $password_hash, ?string $first_name, ?string $last_name, ?string $address, ?string $phone_number, $insurance_company, ?bool $dashcam, string $creation_ip, string $last_ip, bool $validated, array $permissions, array $groups, array $session_tokens){
+        public function __construct(string $email, string $password_hash, ?string $first_name, ?string $last_name, ?string $address, ?string $phone_number, $insurance_company, ?bool $dashcam, string $creation_ip, string $last_ip, int $validated, array $permissions, array $groups, array $session_tokens){
             $this->email = $email;
             $this->password_hash = $password_hash;
             $this->first_name = $first_name;

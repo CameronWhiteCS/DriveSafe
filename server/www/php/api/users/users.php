@@ -33,7 +33,7 @@
         $group = Group::fromId(3);
 
         //Instantiate model and save to DB
-        $user = new User($email, $password_hash, NULL, NULL, NULL, NULL, NULL, NULL, $ip, $ip, false, [], [$group], [$token]);
+        $user = new User($email, $password_hash, NULL, NULL, NULL, NULL, NULL, NULL, $ip, $ip, '0', [], [$group], [$token]);
         $result = $user->save();
         if(!$result) exit(json_encode(['error' => 'An internal or external error occurred while attempting to create your account. Please contact customer support if the problem persists.']));
 
