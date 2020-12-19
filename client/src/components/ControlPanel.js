@@ -42,7 +42,7 @@ const ControlPanel = (props) => {
                     <Button onClick={() => onClick('/admin/quizmanager')} style={buttonStyle}>Quiz Manager</Button>
                 </Col>
                 <Col xs={12} md={4}>
-                    <Button style={buttonStyle}>Permissions Manager</Button>
+                    <Button onClick = {() => onClick('/admin/usermanager')} style={buttonStyle}>User Manager</Button>
                 </Col>
             </Row>
         </React.Fragment>

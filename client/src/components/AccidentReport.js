@@ -127,6 +127,7 @@ const AccidentReport = (props) => {
                                                     type="checkbox"
                                                     name="sleet"
                                                     id="sleet"
+                                                    color="primary"
                                                     as={Checkbox}
                                                 />
                                                 <Form.Label htmlFor="sleet">Sleet</Form.Label>
@@ -138,6 +139,7 @@ const AccidentReport = (props) => {
                                                     type="checkbox"
                                                     name="snow"
                                                     id="snow"
+                                                    color="primary"
                                                     as={Checkbox}
                                                 />
                                                 <Form.Label htmlFor="snow">Snow</Form.Label>
@@ -149,6 +151,7 @@ const AccidentReport = (props) => {
                                                     type="checkbox"
                                                     name="hail"
                                                     id="hail"
+                                                    color="primary"
                                                     as={Checkbox}
                                                 />
                                                 <Form.Label htmlFor="hail">Hail</Form.Label>
@@ -160,6 +163,7 @@ const AccidentReport = (props) => {
                                                     type="checkbox"
                                                     name="rain"
                                                     id="rain"
+                                                    color="primary"
                                                     as={Checkbox}
                                                 />
                                                 <Form.Label htmlFor="rain">Rain</Form.Label>
@@ -171,6 +175,7 @@ const AccidentReport = (props) => {
                                                     type="checkbox"
                                                     name="wind"
                                                     id="wind"
+                                                    color="primary"
                                                     as={Checkbox}
                                                 />
                                                 <Form.Label htmlFor="wind">Wind</Form.Label>
@@ -182,6 +187,7 @@ const AccidentReport = (props) => {
                                                     type="checkbox"
                                                     name="fog"
                                                     id="fog"
+                                                    color="primary"
                                                     as={Checkbox}
                                                 />
                                                 <Form.Label htmlFor="fog">Fog</Form.Label>

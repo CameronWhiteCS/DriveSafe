@@ -18,6 +18,9 @@ import { loadProfile } from './session.js';
 import EditProfile from './components/EditProfile.js';
 import AccidentReport from './components/AccidentReport.js';
 import AccidentSummary from './components/AccidentSummary.js';
+import UserManager from './components/UserManager/UserManager.js';
+
+
 function App() {
 
   const [userData, setUserData] = useState(null);
@@ -60,6 +63,7 @@ function App() {
         <Route exact path="/admin/groupmanager" render={() => <GroupManager />} />
         <Route exact path="/admin/quizmanager" render={() => <QuizManager />} />
         <Route exact path="/admin/quizmanager/edit/:quizId" render={() => <QuizPanel />} />
+        <Route exact path="/admin/usermanager" render={() => <UserManager />} />
         <Route exact path="/profile/edit/" render={() => <EditProfile userData={userData}/>}/>
         <Route exact path="/profile/" render={() => <Profile userData={userData}/>}/>
         <Route exact path="/accidents/create" render={() => <AccidentReport hasPermission={hasPermission}/>}/>
