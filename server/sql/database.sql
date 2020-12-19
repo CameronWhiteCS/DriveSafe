@@ -141,21 +141,13 @@ INSERT INTO `group_permissions` (`group`, `permission`) VALUES
 (1, 'quiz.modify.other'),
 (1, 'quiz.delete.self'),
 (1, 'quiz.delete.other'),
+(1, 'report.create'),
+(1, 'user.modify'),
+(1, 'user.view.other'), 
 (1, 'group.modify'),
 (1, 'group.create'),
 (1, 'group.delete'),
-(1, 'controlpanel.view'),
-(1, 'report.create'),
-(2, 'quiz.create'),
-(2, 'quiz.modify.self'),
-(2, 'quiz.modify.other'),
-(2, 'quiz.delete.self'),
-(2, 'quiz.delete.other'),
-(2, 'group.modify'),
-(2, 'group.create'),
-(2, 'group.delete'),
-(2, 'controlpanel.view'),
-(2, 'report.create');
+(1, 'controlpanel.view');
 
 INSERT INTO `insurers` (`name`) VALUES
 ('None'),

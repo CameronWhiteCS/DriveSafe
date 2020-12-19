@@ -330,7 +330,7 @@
                     array_push($bindParams, $this->id);
                     array_push($bindParams, $permission);
                 }
-    
+                
                 $statement = $conn->prepare("INSERT INTO `user_permissions` (`user`, `permission`) VALUES " . $preparedTuple[1]);
                 if(!$statement || !$statement->bind_param($preparedTuple[0], ...$bindParams) || !$statement->execute()) return false;
             }
@@ -382,12 +382,10 @@
              //Prevent stale data from being saved.
             if($statement->affected_rows <= 0) return false;
 
-
             //Save permissions
+            $statement = $conn->prepare('DELETE FROM `user_permissions` WHERE `user` = ?');
+            if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;
             if(sizeof($this->permissions) > 0){
-                $statement = $conn->prepare('DELETE FROM `user_permissions` WHERE `user` = ?');
-                if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;
-
                 $values = [];
                 foreach($this->permissions as $permission){
                     array_push($values, $this->id);
@@ -396,16 +394,13 @@
                 $prepared_tuple = generate_prepared_tuples(2, sizeof($this->permissions) );
                 $statement = $conn->prepare('INSERT INTO `user_permissions` VALUES ' . $prepared_tuple[1]);
                 if(!$statement || !$statement->bind_param($prepared_tuple[0], ...$values) || !$statement->execute()) return false;
-                return true;
+    
             }
 
             //Save groups
+            $statement = $conn->prepare('DELETE FROM `group_memberships` WHERE `user` = ?');
+            if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;
             if(sizeof($this->groups) > 0){        
-                              
-                $statement = $conn->prepare('DELETE FROM `group_memberships` WHERE `user` = ?');
-                if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;
-                
-
                 $values = [];
                 foreach($this->groups as $group){
                     array_push($values, $this->id);
@@ -421,11 +416,9 @@
             }
 
             //Save session tokens
+            $statement = $conn->prepare('DELETE FROM `session_tokens` WHERE `user` = ?');
+            if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;
             if(sizeof($this->session_tokens) > 0){
-                $statement = $conn->prepare('DELETE FROM `session_tokens` WHERE `user` = ?');
-                if(!$statement || !$statement->bind_param("s", $this->id) || !$statement->execute()) return false;
-        
-
                 $values = [];
                 foreach($this->session_tokens as $token){
                     array_push($values, $this->id);
@@ -439,6 +432,7 @@
             
 
             if(!$conn->commit()) return false;
+
             return true;
 
 
@@ -469,8 +463,9 @@
                 'phoneNumber' => $this->phone_number,
                 'insuranceCompany' => $this->insurance_company,
                 'dashcam' => $this->dashcam,
+                'modified' => $this->modified,
                 'permissions' => $this->permissions,
-                'groups' => $this->groups
+                'groups' => $this->groups,
             ];
         }
 

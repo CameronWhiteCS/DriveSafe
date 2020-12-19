@@ -14,10 +14,10 @@
          $user = User::fromSessionToken($_POST['token']);
          if($user === null) exit(json_encode(['error' => 'Invalid session token.']));
          if(!$user->hasPermission($permission)) exit(json_encode(['error' => 'You do not have permission to preform this operation.']));
+    
     }
 
     function modify_group(){
-
 
         authorize('group.modify');
     
@@ -48,7 +48,5 @@
         if(!$group || !$group->delete()) exit(json_encode(['error' => 'An error occurred while attempting to perform this operation.']));
 
     }
-
-
 
 ?>
