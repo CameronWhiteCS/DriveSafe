@@ -69,6 +69,20 @@
         if(!$db_quiz->save()) exit(json_encode(['error' => $err_msg]));
     }
 
+    function log_score(){
+    	$err_msg = "An internal or external error occurred while attempting to preform this operation.";
+    	$user = User::fromSessionToken($_POST['token']);
+        if($user === null) exit(json_encode(['error' => 'Invalid session token']));
+        $conn = DataManager::getInstance()->getConnection();
+        if(!$conn || $conn->connect_error) exit(json_encode(['error' => $err_msg]));
+        $statement = $conn->prepare('INSERT INTO `quiz_results` (`user`, `score`, `quiz`) VALUES (?, ?, ?)');
+        $user_id = $user->getId();
+        $score = $_POST['score'];
+        $quiz_id = $_POST['quiz'];
+        if(!$statement || !$statement->bind_param('sss', $user_id, $score, $quiz_id) || !$statement->execute()) exit(json_encode(['error' => $err_msg]));
+
+    }
+
     if(isset($_POST['token']) && isset($_POST['action']) && $_POST['action'] == 'create') {
         create_new_quiz();
     } else if($_SERVER['REQUEST_METHOD'] == 'GET' && !$_GET){
@@ -82,6 +96,8 @@
         delete_quiz();
     } else if (isset($_POST['action']) && $_POST['action'] == 'save' && isset($_POST['token']) && isset($_POST['quiz'])) {
         save_quiz();
+    } else if (isset($_POST['action']) && $_POST['action'] === 'submit_score' && isset($_POST['token']) && isset($_POST['score']) && isset($_POST['quiz'])){
+    	log_score();
     } else {
         exit(json_encode(['error' => 'Invalid request.']));
     }

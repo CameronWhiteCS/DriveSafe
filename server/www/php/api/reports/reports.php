@@ -20,7 +20,7 @@
         $token = $_POST['token'];
         $user = User::fromSessionToken($token);
         if($user === null) exit(json_encode(['error' => 'Invalid session token.']));
-        if(!$user->hasPermission('report.create')) exit(json_encode(['error' => 'You don\'t have permission to preform this operation.']));
+        if(!$user->hasPermission('report.create')) exit(json_encode(['error' => 'You don\'t have permission to perform this operation.']));
         
         $latitude = $_POST['latitude'];
         $longitude = $_POST['longitude'];
@@ -73,7 +73,7 @@
         } 
     }
 
-    function get_accidents(){
+    function get_reports_by_id(){
         global $conn;
 
         $city_id = $_GET['cityId'];
@@ -82,7 +82,7 @@
         FROM `accident_reports`
         WHERE `city` = ?";
         $statement = $conn->prepare($sql);
-        if(!$statement || !$statement->bind_param("s", $city_id) || !$statement->execute()) exit(json_encode(['error' => 'An internal or external error occurred while attempting to preform this operation.']));
+        if(!$statement || !$statement->bind_param("s", $city_id) || !$statement->execute()) exit(json_encode(['error' => 'An internal or external error occurred while attempting to perform this operation.']));
         $result_set = $statement->get_result();
         $output = [];
         while($row = $result_set->fetch_assoc()) {
@@ -92,7 +92,9 @@
     }
 
     if(isset($_GET['cityId'])) {
-        get_accidents();
+        get_reports_by_id();
+    } else if(isset($_GET['cityName'])) {
+        //TODO
     } else {
         create_new_report();
     }

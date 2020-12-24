@@ -19,7 +19,8 @@ import EditProfile from './components/EditProfile.js';
 import AccidentReport from './components/AccidentReport.js';
 import AccidentSummary from './components/AccidentSummary.js';
 import UserManager from './components/UserManager/UserManager.js';
-
+import Rivalries from './components/Rivalries.js';
+import EditRivalries from './components/EditRivalries.js';
 
 function App() {
 
@@ -64,8 +65,9 @@ function App() {
         <Route exact path="/admin/quizmanager" render={() => <QuizManager />} />
         <Route exact path="/admin/quizmanager/edit/:quizId" render={() => <QuizPanel />} />
         <Route exact path="/admin/usermanager" render={() => <UserManager />} />
+        <Route exact path="/rivalries/edit" render={() => <EditRivalries hasPermission={hasPermission}/>} />
+        <Route exact path="/rivalries" render={() => <Rivalries />} />
         <Route exact path="/profile/edit/" render={() => <EditProfile userData={userData}/>}/>
-        <Route exact path="/profile/" render={() => <Profile userData={userData}/>}/>
         <Route exact path="/accidents/create" render={() => <AccidentReport hasPermission={hasPermission}/>}/>
         <Route exact path="/accidents/summary" render={() => <AccidentSummary hasPermission={hasPermission}/>}/>
       </div>

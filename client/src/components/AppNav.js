@@ -51,11 +51,12 @@ const AppNav = (props) => {
           <NavLink exact style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/" >Home</NavLink>
           <NavLink exact style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/quizzes" >Quizzes</NavLink>
           <NavLink exact style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/accidents/summary" >Accidents</NavLink>
+          <NavLink exact style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/rivalries">Rivalries</NavLink>
           {props.hasPermission('controlpanel.view') === true &&  <NavLink style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/admin" >Control Panel</NavLink>}
           {props.userData !== null ? <NavLink exact style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/signout" >Sign out</NavLink> : <NavLink exact style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/signin" >Sign in</NavLink>}
           {
             props.userData !== null &&
-            <Nav.Link className="d-lg-none" href={"/profile/view"} onClick={onLinkClick}>
+            <Nav.Link className="d-lg-none" href={"/profile/edit"} onClick={onLinkClick}>
                   Profile
             </Nav.Link>
           }
@@ -63,8 +64,8 @@ const AppNav = (props) => {
             /* Display profile icon depending on screen size*/
             props.userData !== null ?
                 <div className="d-none d-lg-block" style={iconContainer}>
-                   <NavLink style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/profile" >
-                    {<UserIcon style={iconStyle} onClick={() => history.push('/profile')} />}
+                   <NavLink style={linkStyle} activeStyle={selectedLink} className="nav-link" to="/profile/edit" >
+                    {<UserIcon style={iconStyle} onClick={() => history.push('/profile/edit')} />}
                   </NavLink>
                 </div>
             :

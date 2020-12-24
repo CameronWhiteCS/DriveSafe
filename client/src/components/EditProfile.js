@@ -27,7 +27,7 @@ const EditProfile = (props) => {
         lastName: props.userData.lastName,
         address: props.userData.address,
         phoneNumber: props.userData.phoneNumber,
-        insuranceCompany: props.userData.insuranceCompany.id,
+        insuranceCompany: props.userData.insuranceCompany === null ? 1 : props.userData.insuranceCompany.id,
         dashcam: props.userData.dashcam,
         action: 'update_profile',
         token: new Cookies().get('token')

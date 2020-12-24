@@ -15,7 +15,7 @@ const ControlPanel = (props) => {
 
     const buttonStyle = {
         width: '90%',
-        margin: '5px auto 5px auto',
+        margin: '7px auto 7px auto',
         display: 'block'
     };
 
@@ -43,6 +43,9 @@ const ControlPanel = (props) => {
                 </Col>
                 <Col xs={12} md={4}>
                     <Button onClick = {() => onClick('/admin/usermanager')} style={buttonStyle}>User Manager</Button>
+                </Col>
+                <Col xs={12} md={4}>
+                    <Button onClick = {() => onClick('/rivalries/edit')} style={buttonStyle}>Rivalry Manager</Button>
                 </Col>
             </Row>
         </React.Fragment>

@@ -20,7 +20,7 @@ CREATE TABLE `users`(
     `last_name` VARCHAR(255),
     `address` VARCHAR(255),
     `phone_number` VARCHAR(255),
-    `insurance_company` INT,
+    `insurance_company` INT DEFAULT 1,
     `dashcam` TINYINT,
     `creation_ip` VARCHAR(128) NOT NULL,
     `last_ip` VARCHAR(128) NOT NULL,
@@ -86,6 +86,14 @@ CREATE TABLE `question_choices` (
     CONSTRAINT FOREIGN KEY (`question`) REFERENCES `quiz_questions`(`id`) ON DELETE CASCADE
 ) engine=InnoDB;
 
+CREATE TABLE `quiz_results` (
+    `user` VARCHAR(255) NOT NULL,
+    `quiz` INT NOT NULL,
+    `score` DECIMAL NOT NULL,
+    CONSTRAINT FOREIGN KEY (`user`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (`quiz`) REFERENCES `quizzes`(`id`) ON DELETE CASCADE
+) engine=InnoDB;
+
 /*Accident reports*/
 CREATE TABLE `cities`(
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
@@ -147,7 +155,9 @@ INSERT INTO `group_permissions` (`group`, `permission`) VALUES
 (1, 'group.modify'),
 (1, 'group.create'),
 (1, 'group.delete'),
-(1, 'controlpanel.view');
+(1, 'controlpanel.view'),
+(1, 'rivalry.create'),
+(1, 'rivalry.delete');
 
 INSERT INTO `insurers` (`name`) VALUES
 ('None'),
