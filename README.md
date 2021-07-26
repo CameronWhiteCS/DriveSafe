@@ -6,6 +6,10 @@ It was developed during the Spring 2020 semester at the University of Florida as
 
 ## Screenshots
 
+<img src="https://raw.githubusercontent.com/CameronWhiteCS/DriveSafe/master/screenshots/map.png" width="750">
+
+<img src="https://raw.githubusercontent.com/CameronWhiteCS/DriveSafe/master/screenshots/quiz_editor.png" width="750">
+
 ## Main Features
 
 * User-submitted accident reports and accident map
