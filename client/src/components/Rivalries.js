@@ -47,8 +47,8 @@ const Rivalries = (props) => {
                             rivalries.map((rivalry, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{rivalry.city1.name}</td>
-                                        <td>{rivalry.city2.name}</td>
+                                        <td>{rivalry.city1?.name}</td>
+                                        <td>{rivalry.city2?.name}</td>
                                     </tr>
                                 );
                             })

@@ -1,10 +1,9 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/NavBar';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useHistory } from "react-router-dom";
 import { ReactComponent as UserIcon } from '../svg/user.svg';
 import {NavLink} from 'react-router-dom'
+
+import {Navbar, NavDropdown, Nav} from 'react-bootstrap';
 
 const AppNav = (props) => {
 
@@ -44,7 +43,7 @@ const AppNav = (props) => {
 
   return (
     <Navbar bg="primary" expand="lg">
-      <Navbar.Brand style={linkStyle}>Driver Safety</Navbar.Brand>
+      <Navbar.Brand style={linkStyle}>DriveSafe</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto w-100">

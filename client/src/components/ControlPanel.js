@@ -1,8 +1,5 @@
 import React from 'react';
-
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
+import{Row, Col, Button} from 'react-bootstrap';
 import {useHistory} from 'react-router-dom';
 
 const ControlPanel = (props) => {

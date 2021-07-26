@@ -12,7 +12,7 @@
 
 	function get_city_by_id($id){
 		global $conn;
-		$statement = $conn->prepare("SELECT * FROM `CITIES` WHERE `id` = ?");
+		$statement = $conn->prepare("SELECT * FROM `cities` WHERE `id` = ?");
 		if(!$statement || !$statement->bind_param('s', $id) || !$statement->execute()) return null;
 		$result_set = $statement->get_result();
 		if($result_set->num_rows === 0) return null;

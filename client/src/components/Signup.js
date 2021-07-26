@@ -1,13 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import { startSession } from '../session';
 import { Formik, Form as FormikForm, Field } from 'formik';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Row, Col, Form, Button} from 'react-bootstrap';
 
 const Signup = (props) => {
 

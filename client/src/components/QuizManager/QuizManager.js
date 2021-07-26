@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Loading from '../Loading.js';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-import Button from 'react-bootstrap/Button';
+import {Alert, Row, Col, Button} from 'react-bootstrap';
 
 import Cookies from 'universal-cookie';
 

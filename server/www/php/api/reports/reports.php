@@ -3,7 +3,7 @@
     require_once __DIR__ . '/../../models/User.php';
     require_once __DIR__ . '/../../models/AccidentReport.php';
 
-    $KEY = '24b0721ea0c143acb1c5ab09c69f0fd7';
+    $KEY = '01e4ca9f9e054aeca8d9a5bdc43f2728';
 
     $_POST = (array) json_decode(file_get_contents('php://input'));
 
@@ -37,6 +37,7 @@
             $_address = urlencode($address);
             $openCageData = json_decode(file_get_contents("https://api.opencagedata.com/geocode/v1/json?q=$_address&key=$KEY"));
             if(sizeof($openCageData->results) == 0) {
+                
                 exit(json_encode(['error' => 'No locations matched the provided address.']));
             } else {
                 $bestIndex = 0;

@@ -1,7 +1,4 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Form, Button, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { startSession } from '../session.js';

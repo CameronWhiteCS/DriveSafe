@@ -13,7 +13,6 @@ import GroupManager from './components/GroupManager/GroupManager.js';
 import QuizManager from './components/QuizManager/QuizManager.js';
 import QuizPanel from './components/QuizManager/QuizPanel.js';
 import TakeQuiz from './components/TakeQuiz.js';
-import Profile from './components/Profile.js';
 import { loadProfile } from './session.js';
 import EditProfile from './components/EditProfile.js';
 import AccidentReport from './components/AccidentReport.js';
@@ -22,7 +21,9 @@ import UserManager from './components/UserManager/UserManager.js';
 import Rivalries from './components/Rivalries.js';
 import EditRivalries from './components/EditRivalries.js';
 
-function App() {
+import '../src/css/style.css';
+
+const App = () => {
 
   const [userData, setUserData] = useState(null);
 
