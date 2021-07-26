@@ -1,10 +1,8 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
-import Form from 'react-bootstrap/Form';
+import {Button, Table, Form} from 'react-bootstrap';
 
 const GroupPanel = (props) => {
 

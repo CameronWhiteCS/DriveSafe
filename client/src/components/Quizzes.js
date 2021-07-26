@@ -1,12 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { signedIn } from '../session.js';
 import Loading from './Loading.js';
-
 import {useHistory} from 'react-router-dom';
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Row, Col} from 'react-bootstrap';
 
 const Quizzes = (props) => {
 

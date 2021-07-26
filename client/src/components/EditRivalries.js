@@ -146,8 +146,8 @@ const EditRivalries = (props) => {
                             rivalries.map((rivalry, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{rivalry.city1.name}</td>
-                                        <td>{rivalry.city2.name}</td>
+                                        <td>{rivalry.city1?.name}</td>
+                                        <td>{rivalry.city2?.name}</td>
                                         <td>
                                             <Button variant="danger" onClick={() => deleteRivalry(rivalry.city1.id, rivalry.city2.id, index)}>Delete</Button>
                                         </td>

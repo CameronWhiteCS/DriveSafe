@@ -1,0 +1,11 @@
+nav > * {
+    font-size: 16pt;
+}
+
+.navbar-brand {
+    font-size: 26pt;
+}
+
+p, .form-label {
+    font-size: 14pt;
+}

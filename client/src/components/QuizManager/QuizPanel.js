@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import QuestionPanel from './QuestionPanel.js';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 import Cookies from 'universal-cookie';

@@ -6,9 +6,7 @@ import Loading from '../Loading.js';
 
 import { signedIn } from '../../session.js';
 
-import Alert from 'react-bootstrap/Alert';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Alert, Row, Col} from 'react-bootstrap';
 
 const GroupManager = (props) => {
 

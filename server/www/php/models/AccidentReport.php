@@ -50,7 +50,8 @@
             $statement = $conn->prepare('INSERT INTO `accident_reports` (`author`, `city`, `address`, `latitude`, `longitude`, `rain`, `hail`, `sleet`, `snow`, `fog`, `wind`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
             $bind_params = [$this->author, $this->city, $this->address, $this->latitude, $this->longitude, $this->rain, $this->hail, $this->sleet, $this->snow, $this->fog, $this->wind];
             if(!$statement || !$statement->bind_param("sssssssssss", ...$bind_params) || !$statement->execute()) {
-                return false;
+                exit("asdjsakdasduas");
+                return $false;
             }
             $this->id = $statement->insert_id;
             $this->_new = false;
