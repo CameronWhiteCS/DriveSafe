@@ -2,7 +2,7 @@
 
 DriveSafe is an application that promotes driver safety by empowering drivers to make better choices through a combination of accident data and safety information. 
 
-It was developed during the Spring 2020 semester at the University of Florida as part of a software engineering class. The project's direction was dictated by a third par
+It was developed during the Spring 2020 semester at the University of Florida as part of a software engineering class. The project's direction was dictated by a third party that contacted to school to have the application developed.
 
 ## Screenshots
 
