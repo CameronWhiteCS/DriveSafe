@@ -62,7 +62,7 @@
     
         $statement = $conn->prepare($sql);
     
-        if(!$statement || !$statement->bind_param("ssss", $latitude, $latitude, $longitude, $longitude) || !$statement->execute()) exit(json_encode(['error' => $conn->error])); //exit(json_encode(['error' => 'An internal or external error occurred while attempting to preform this operation.']));
+        if(!$statement || !$statement->bind_param("ssss", $latitude, $latitude, $longitude, $longitude) || !$statement->execute()) exit(json_encode(['error' => 'An internal or external error occurred while attempting to preform this operation.']));
     
         $result_set = $statement->get_result();
         $row = $result_set->fetch_assoc();
